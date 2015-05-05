@@ -109,7 +109,8 @@ class CodeBlock(Directive):
 
         formatter = utils.NikolaPygmentsHTML(anchor_ref=anchor_ref, classes=classes, linenos=linenos, linenostart=linenostart)
         out = pygments.highlight(code, lexer, formatter)
-        node = nodes.raw('', out, format='html')
+        # add a div round the code table so that it can constrained to the page width
+        node = nodes.raw('', "<div class='code-container'>\n" + out + "\n</div>", format='html')
 
         self.add_name(node)
         # if called from "include", set the source
